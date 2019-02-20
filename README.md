@@ -11,10 +11,15 @@ The topology of the game is simple :
 
 -Attacker using kali on hotspot from iphone.
 
-That code was uploaded on github in order to be used to exploit the mobile-detector vulnerability in the Dv pi3.
-It will allow us to get access to Wifi-credential.txt located in the folder /home/pi
+Running a small "wpscan --url http://victimwebserver.ddns.net  --enumerate --plugins-detection aggressive"
+
+That showed us a vulnerability that allow us to use arbitary file upload on the plugin wp-mobile-detector 3.5.
+
 
 ![getcredential php](https://user-images.githubusercontent.com/34336452/53041233-5dc00d80-347b-11e9-9d1f-8ade17cf8f8d.png)
+
+That code was uploaded on github in order to be used to exploit the mobile-detector vulnerability in the Dv pi3.
+It will allow us to get access to Wifi-credential.txt located in the folder /home/pi
 
 The goal will then be to upload that file (game.php) in the /var/www/html/wordpress/wp-content/plugins/wp-mobile-detector/cache in order to call it later directly from the website.
 
