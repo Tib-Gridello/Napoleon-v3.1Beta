@@ -9,7 +9,7 @@ The topology of the game is simple :
 
 -Raspberry pi running DV pi3 in 192.168.0.23 (local) and using no-ip.com with the address : http://victimwebserver.ddns.net
 
--Attacker using kali on hotspot from iphone.
+-Attacker using kali on hotspot from iphone (VPN Russia).
 
 Running a small "wpscan --url http://victimwebserver.ddns.net  --enumerate --plugins-detection aggressive"
 
