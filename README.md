@@ -57,7 +57,7 @@ Part 2 :
 
 For the pcap 2, the attacker is going to scan the network with nmap 
 
-![nmap](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/Screenshot%20from%202019-02-24%2015-13-24.png?raw=true)
+![nmap](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/nmap.png?raw=true)
 
 
 discover that 192.168.0.32 (Victim pc) is having port 445 open (smb)
