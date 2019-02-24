@@ -38,8 +38,7 @@ Then go to http://victimwebserver.ddns.net/wp-content/plugins/wp-mobile-detector
 
 you will see :
 
-![game php on the server pcap1](https://user-images.githubusercontent.com/34336452/53043959-94992200-3481-11e9-8818-4209b945ce9b.png)
-
+![afterex](https://user-images.githubusercontent.com/34336452/53300174-7c3b5580-383b-11e9-85e6-83f9a52d8c98.png)
 
 which is the content of Wifi-credentials.txt
 
