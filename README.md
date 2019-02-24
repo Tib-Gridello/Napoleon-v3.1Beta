@@ -55,7 +55,12 @@ The capture of the pcap is made directly on the raspberry pi with tcpdump.
 Part 2 :
 
 
-For the pcap 2, the attacker is going to scan the network with nmap (later), discover that 192.168.0.32 (Victim pc) is having port 445 open (smb)
+For the pcap 2, the attacker is going to scan the network with nmap 
+
+![nmap](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/Screenshot%20from%202019-02-24%2015-13-24.png?raw=true)
+
+
+discover that 192.168.0.32 (Victim pc) is having port 445 open (smb)
 
 He is later going to bruteforce it :
 
