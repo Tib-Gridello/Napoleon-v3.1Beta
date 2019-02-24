@@ -52,4 +52,15 @@ The capture of the pcap is made directly on the raspberry pi with tcpdump.
 
 -----------------------------------------------------------------------------------------------------------------------
 
- ![brute](https://raw.githubusercontent.com/Tib-Gridello/Napoleon-v3.1Beta/master/bruteforce-list.png)
+Part 2 :
+
+
+For the pcap 2, the attacker is going to scan the network with nmap (later), discover that 192.168.0.32 (Victim pc) is having port 445 open (smb)
+
+He is later going to bruteforce it :
+
+![s](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/scanner-smb-login.png)
+
+with two small lists :
+![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/bruteforce-list.png)
+![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/bruteforcelist2.png)
