@@ -15,8 +15,9 @@ Running a small "wpscan --url http://victimwebserver.ddns.net  --enumerate --plu
 
 That showed us a vulnerability that allow us to use arbitary file upload on the plugin wp-mobile-detector 3.5.
 
+![2019-02-24 13_48_35-napoleonjusthackedyou_getwifi_ the quieter you are](https://user-images.githubusercontent.com/34336452/53300145-0636ee80-383b-11e9-8f89-497cbed543d2.png)
 
-![getcredential php](https://user-images.githubusercontent.com/34336452/53041233-5dc00d80-347b-11e9-9d1f-8ade17cf8f8d.png)
+(edit: creation of new Github in order to keep safe my github)
 
 That code was uploaded on github in order to be used to exploit the mobile-detector vulnerability in the Dv pi3.
 It will allow us to get access to Wifi-credential.txt located in the folder /home/pi
