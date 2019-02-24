@@ -61,6 +61,9 @@ He is later going to bruteforce it :
 
 ![s](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/scanner-smb-login.png)
 
-with two small lists :
+with two small lists (provisionnary) :
+
 ![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/bruteforce-list.png)
+
+
 ![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/bruteforcelist2.png)
