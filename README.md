@@ -87,3 +87,15 @@ Done
 
 ![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/meterpreter.png)
 
+
+--------------------------------------------------------------------------------------------------------------------------
+
+To capture the traffic I am using Openwrt on a Dlink.
+
+Tcpdump did the job.
+
+![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/openwrt.png)
+
+(screenshot taken for part 3 where I only focused on 192.168.0.32)
+
+
