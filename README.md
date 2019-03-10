@@ -78,3 +78,12 @@ And find the username : "dsfdsfdfssdfdsfdsf" and password : "lol"
 ------------------------------------------------------------------------------------------------------------------------
 
 Part 3:
+
+Kali using the credentials in part 2 in order to get a meterpreter session. Exploit used here is ms17 psexec
+
+![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/part3.png)
+
+Done 
+
+![](https://github.com/Tib-Gridello/Napoleon-v3.1Beta/blob/master/images/meterpreter.png)
+
