@@ -1,0 +1,200 @@
+#!/bin/bash
+
+
+function datee {
+            echo "-----------------------------";
+            echo $(date);
+            echo "-----------------------------";
+
+		}
+		
+function move {
+			cd /root/Desktop/Honors/Napoleon/game/Evidence-Locker/;
+		}
+
+function findlist {
+		find . -type f ! -name '*.list'  -exec echo -n "sha1 : " \; -exec sha1sum {} \; -exec echo -n "md5 : " \; -exec md5sum {} \;   >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/findlist.list;
+	}
+	#
+	
+function findtype {
+			find . -type f ! -name '*.list'  -exec file {} \; >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/filetype.list;
+		}
+
+function new {
+			echo $'\n';
+		}
+
+	
+	
+mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/;
+mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/md5;
+mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sha1;
+#sudo dd if=/root/Desktop/Honors/Napoleon/game/USBDrive.001 of=/root/Desktop/Honors/Napoleon/game/image.dd bs=512;
+new;
+move;
+cd ..;
+sudo mkdir /mnt/analysis;
+
+
+sudo mount -o ro,noexec,loop /root/Desktop/Honors/Napoleon/image.dd /mnt/analysis;
+move;
+
+new;
+
+
+if [[ (! -f /root/Desktop/Honors/Napoleon/game/Evidence-Locker/list.list )&&
+	  ( ! -f /root/Desktop/Honors/Napoleon/game/Evidence-Locker/findlist.list )&&
+	  ( ! -f /root/Desktop/Honors/Napoleon/game/Evidence-Locker/filetype.list)]];
+
+        then
+                move;
+                touch list.list;
+                touch findlist.list;
+                touch filetype.list;
+		fi	
+    datee >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/list.list;
+	datee >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/findlist.list;
+    datee >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/filetype.list;
+	cd /mnt/analysis;
+    ls -aliRU -I list.list -I filetype.list -I findlist.list >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/list.list;
+    findtype;
+    findlist;
+	move
+	sha1sum findlist.list > findlist.sha1
+	md5sum findlist.list > findlist.md5
+	sha1sum filetype.list > filetype.sha1
+	md5sum filetype.list > filetype.md5
+	sha1sum list.list > list.sha1
+	md5sum list.list > list.md5
+    
+	cd ..;
+	echo Hello dear investigator, are you looking for any specific strings?
+	new;
+	read varname
+	echo $varname > searchlist.txt;	
+	date > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/searchresult.txt;
+	grep -abif searchlist.txt /root/Desktop/Honors/Napoleon/image.dd > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/searchresult.txt;
+	
+	mv searchlist.txt /root/Desktop/Honors/Napoleon/game/Evidence-Locker/;
+	
+	move;
+	md5sum searchlist.txt > searchlist.md5
+	sha1sum searchlist.txt > searchlist.sha1
+	md5sum searchresult.txt > searchresult.md5	
+	sha1sum searchresult.txt > searchresult.sha1
+	new;
+	
+	mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted;
+		
+	touch temp2.txt;
+	mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/String-research/;
+	
+	if [ -s /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp.txt ]
+		then
+		
+		echo "You can find $varname here :";
+		new;
+		cat searchresult.txt;
+		cat searchresult.txt | sed 's/:.*//' > temp.txt;
+		
+		cat /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp.txt | while read line;
+			do
+			ss=`echo "$line / 4096" | bc`;
+			echo $ss >> /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp1.txt;
+		
+			done;
+			sort -u /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp1.txt > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp2.txt;
+			rm temp1.txt;
+		
+			cat /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp2.txt | while read line;
+			do
+			new;
+			echo "The string $varname is located in data block "$line", let me check that block for you";
+			new;
+		
+			blkstat /root/Desktop/Honors/Napoleon/game/image.dd $line > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp3.txt;
+		
+			if  grep -q Not /root/Desktop/Honors/Napoleon/game/Evidence-Locker/temp3.txt ; then
+				echo "The block you are looking for is unalocated, let me get it for you";
+			
+				new;
+			
+				blkcat /root/Desktop/Honors/Napoleon/game/image.dd $line > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted/$line.txt;
+				echo "$line was created under /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted/$line";
+				else
+				blkcat /root/Desktop/Honors/Napoleon/game/image.dd $line > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/String-research/$line.txt;
+				echo "The block you are looking for is not unalocated, let me get it for you";
+				echo "$line was created under /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted/$line";
+			
+			fi
+			done;
+		new;
+		rm temp3.txt;
+	else
+	echo "The string you are looking for doesn't appear to be on the disk... Try again"
+	new;
+	fi
+	
+
+
+cd ..
+
+fls  -rpd /root/Desktop/Honors/Napoleon/image.dd | grep -Eo " [0-9]+([^0-9]){0}" | sed -e 's/^\s*//' > unalocated-deleted1.txt
+sort -u unalocated-deleted1.txt > unalocated-deleted.txt
+
+
+cat unalocated-deleted.txt | while read line;
+do
+ss=`ffind /root/Desktop/Honors/Napoleon/image.dd $line | sed 's:.*/::'`;
+echo "$ss was created under /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted/$ss";
+icat /root/Desktop/Honors/Napoleon/image.dd $line > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/Files-unalocated-deleted/$ss;
+done;
+
+
+
+
+
+
+
+
+blkls /root/Desktop/Honors/Napoleon/image.dd > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/huna.blkls
+blkls -s /root/Desktop/Honors/Napoleon/image.dd > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/slack.blkls
+
+
+
+sudo fls -r -m "/" /root/Desktop/Honors/Napoleon/image.dd > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/body #http://sysforensics.org/2012/03/sleuth-kit-part-3-fls-mactime-and-icat/
+sudo mactime -b /root/Desktop/Honors/Napoleon/game/Evidence-Locker/body > /root/Desktop/Honors/Napoleon/game/Evidence-Locker/timline.txt 
+move;
+
+md5sum huna.blkls > huna.md5
+sha1sum huna.blkls > huna.sha1
+md5sum slack.blkls > slack.md5
+sha1sum slack.blkls > slack.sha1
+md5sum body > body.md5
+sha1sum body >body.sha1
+md5sum timline.txt > timline.md5
+sha1sum timline.txt > timline.sha1
+
+	mv *.sha1 sha1
+	mv *.md5 md5
+cd ..
+
+
+mkdir /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sorter/
+
+	sudo sorter -d /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sorter/  -m "/" /root/Desktop/Honors/Napoleon/image.dd
+	
+
+for d in /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sorter/*.*;
+do
+        echo $d 
+        sha1sum $d > $d.sha1
+        md5sum $d > $d.md5
+done
+
+cd /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sorter/
+mv *.md5 /root/Desktop/Honors/Napoleon/game/Evidence-Locker/md5
+mv *.sha1 /root/Desktop/Honors/Napoleon/game/Evidence-Locker/sha1
+
+
