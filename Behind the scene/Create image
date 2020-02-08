@@ -1,0 +1,8 @@
+Using Bulkfilechanger to change date
+Using Eraser to clean disk properly
+Using Partition of a USB to add all the files
+
+Add all the files, change date, delete ones u want, 
+Plug usb to Linux and use dd to output partition as image.
+
+Use script to sort image out and second script to clean 
